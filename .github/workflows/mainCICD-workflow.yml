@@ -23,37 +23,27 @@ jobs:
     my_ci_pipeline:
        runs-on: ubuntu-latest
        steps:
-          - uses: actions/checkout@v1
-          - name: Set up JDK 1.8
-            uses: actions/setup-java@v1
-            with: 
-             java-version: 1.8
-          - name: Compile with Maven
-            run: mvn compile
-          - name: Testing
-            run: mvn test
-          - name: package
-            run: mvn package
-        
-  
-          - name: Git clone our repository
-            uses: actions/checkout@v1
-            
-          - name: Create War deployment package
-            run : war -r ${{ env.DEPLOY_PACKAGE_NAME }} ./  -x  *.git*
+         - name: Pre-build operation
+           run: /prebuild.sh 
            
-          - name: Configure my AWS Credentils
-            uses: aws-actions/configure-aws-credentials@v1
-            with:
+         - name: Git clone our repository
+           uses: actions/checkout@v1
+            
+         - name: Create War deployment package
+           run : war -r ${{ env.DEPLOY_PACKAGE_NAME }} ./  -x  *.git*
+           
+         - name: Configure my AWS Credentils
+           uses: aws-actions/configure-aws-credentials@v1
+           with:
              aws-access-key-id    : ${{ secrets.MY_AWS_ACCESS_KEY }}
              aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
              aws-region           : ${{ env.AWS_REGION_NAME }}
        
-          - name: Copy our Deployment package to S3 bucket
-            run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME}}/
+         - name: Copy our Deployment package to S3 bucket
+           run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME}}/
          
-          - name: Print nice message on completion of CI Pipeline
-            run : echo "CI Pipeline part finished successfully"
+         - name: Print nice message on completion of CI Pipeline
+           run : echo "CI Pipeline part finished successfully"
     my_cd_pipeline:
        runs-on: ubuntu-latest
        needs: [my_ci_pipeline]
