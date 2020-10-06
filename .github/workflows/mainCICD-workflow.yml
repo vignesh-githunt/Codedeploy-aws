@@ -24,7 +24,7 @@ jobs:
        runs-on: ubuntu-latest
        steps:
          - name: Pre-build operation
-           run: /prebuild.sh 
+           run: ./prebuild.sh 
            
          - name: Git clone our repository
            uses: actions/checkout@v1
