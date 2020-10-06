@@ -33,7 +33,7 @@ jobs:
           - name: Testing
             run: mvn test
           - name: Create War deployment package
-            run : war -r ${{ env.DEPLOY_PACKAGE_NAME }} ./  -x  *.git*
+            run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./  -x  *.git*
            
           - name: Configure my AWS Credentils
             uses: aws-actions/configure-aws-credentials@v1
