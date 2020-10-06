@@ -22,10 +22,7 @@ on:
 jobs:
     my_ci_pipeline:
        runs-on: ubuntu-latest
-       steps:
-         - name: Pre-build operation
-           run: ./Building_Patch_Files.sh
-           
+       steps:     
          - name: Git clone our repository
            uses: actions/checkout@v1
          - name: Run CodeBuild
