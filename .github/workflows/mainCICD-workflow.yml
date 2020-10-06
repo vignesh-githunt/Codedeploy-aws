@@ -15,7 +15,7 @@ env:
   AWS_REGION_NAME           : "us-east-1"
 
 on: 
-  pull_request:
+  push:
     branches:
      - master
 
