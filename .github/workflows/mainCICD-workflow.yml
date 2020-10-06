@@ -6,12 +6,12 @@
 #
 # Made by Denis Astahov ADV-IT Copyleft (c) 2019
 #---------------------------------------------------------------------
-name: CI-CD-Pipeline-to-AWS-ElasticBeanstalk
+name: CI-CD-Github to Codedepoy
 env:
-  EB_PACKAGE_S3_BUCKET_NAME : "flash-github"
+  EB_PACKAGE_S3_BUCKET_NAME : "flash-github1"
 # APPLICATION_NAME          : "sampleapp"
 #  APPLICATION_GROUP_NAME    : "samplegroup"
-  DEPLOY_PACKAGE_NAME       : "flash-github-${{ github.sha }}.war"
+  DEPLOY_PACKAGE_NAME       : "flash-github1-${{ github.sha }}.war"
   AWS_REGION_NAME           : "us-east-1"
 
 on: 
