@@ -1,0 +1,23 @@
+version: 0.0
+os: linux
+files:
+  - source: clmaster.war
+    destination: /opt/Temp_Location
+
+permissions:
+  - object: /opt/
+    pattern: "**"
+    owner: root
+    group: root
+    mode: 755
+    type:
+      - directory
+hooks:
+  BeforeInstall:
+  - location: BACKUP.sh
+    timeout: 100
+    runas: root
+  AfterInstall:
+  - location: ROLLBACK.sh
+    timeout: 300
+    runas: root

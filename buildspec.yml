@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+  build:
+    commands:
+      - echo Build started on `date`
+      - cd Source_Codes_CLMASTER_Module
+      - mvn test 
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - mvn package
+artifacts:
+  files:
+    - Source_Codes_CLMASTER_Module/target/clmaster.war
+    - appspec.yml
+    - scripts/BACKUP.sh
+    - scripts/ROLLBACK.sh
+  discard-paths: yes
+
+  
+  
+

@@ -1,0 +1,13 @@
+TASK_LIST
+
+1.Integration between github and CodeBuild-->COMPLETED
+2.Integration between github and codeDeploy-->COMPLETED
+3.Integration between github and codePipeLine-->COMPLETED
+4.Integration between github and RDS database via CodeBuild-->COMPLETED
+5.Backup the entire application before deploying(Shell Scripting)-->COMPLETED
+6.Rollback application if fails(Shell Scripting)-->COMPLETED
+7.Maven coding to Build War appilcation-->-->COMPLETED
+8.Testing Codes in Java -->in Progress (Automated Testers)
+9.R&D on best postgres CLI tool to execute SQL scrips-->COMPLETED
+10.Shell Scripting to autodetect SQL scripts from Github-->COMPLETED
+11.Notification through mail-->COMPLETED
