@@ -1,8 +1,8 @@
 version: 0.0
 os: linux
 files:
-  - source: .
-    destination: /opt/Temp_Location
+  - source: s3:///flash-github1/*.war
+    destination: /opt/wildfly/standalone/deployment/
 
 permissions:
   - object: /opt/
