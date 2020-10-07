@@ -1,54 +1,45 @@
 #!/bin/bash
-sleep 10
-##Deploying application from Temp_Location based on the name
-if [ -f "/opt/wildfly/standalone/deployments/clmaster.war" ];
+
+###Moving patches in to server
+if [ -f "/backup/clapp.war.tar.gz_$(date +%d%b%Y)" ]
 then
-mv  /opt/Temp_Location/clmaster.war /opt/wildfly/standalone/deployments/clmaster.war
+if [ -f "/backup/connectleader1.war.tar.gz_$(date +%d%b%Y)" ]
+then
+sudo tar -xvf  /opt/codedeploy-agent/deployment-root/$DEPLOYMENT_GROUP_ID/$DEPLOYMENT_ID/deployment-archive/opt.tar.gz --directory /
+fi
+fi
+
+
+##Deploying patches in to server
+if [ -f "/opt/wildfly/standalone/deployments/clapp.war.deployed" ];
+then
+mv  /opt/wildfly/standalone/deployments/webapp.war.deployed /opt/wildfly/standalone/deployments/webapp.war.dodeploy
 else
 echo ""
 fi
-if [ -f "/opt/wildfly/standalone/deployments/clmaster100.war" ];
+
+sleep 200
+
+###MARKUP FILE based rollback
+if [ -f "/opt/wildfly/standalone/deployments/clapp.war.failed" ];
 then
-mv  /opt/Temp_Location/clmaster.war /opt/wildfly/standalone/deployments/clmaster100.war
-else
-echo ""
-fi
-cd /opt
-rm -rf Temp_Location ##removed temp location of deployment
-sudo systemctl start wildfly
-sleep 50
-if [ -f "/opt/wildfly/standalone/deployments/clmaster.war.failed" ];
-then
-tar -xvf /backup/clmaster.war.tar.gz_$(date +%d%b%Y) --directory /opt/wildfly/standalone/deployments/
-sleep 15
+tar -xvf /backup/clapp.war.tar.gz_$(date +%d%b%Y) --directory /opt/wildfly/standalone/deployments/
+sleep 5
 cd /opt/wildfly/standalone/deployments/
-mv clmaster.war.failed  clmaster.war.dodeploy
-sleep 30
-echo "Deployment of clmaster.war.tar.gz_$(date +%d%b%Y) is rollbacked ">>/backup/logs/Staus_Bakup.log
+mv webapp.war.failed  webapp.war.dodeploy
 else
 echo ""
 fi
 
-if [ -f "/opt/wildfly/standalone/deployments/clmaster100.war.failed" ];
-then
-tar -xvf /backup/clmaster100.war.tar.gz_$(date +%d%b%Y) --directory /opt/wildfly/standalone/deployments/
-sleep 15
-cd /opt/wildfly/standalone/deployments/
-mv clmaster100.war.failed  clmaster100.war.dodeploy
-sleep 30
-echo "Deployment of clmaster100.war.tar.gz_$(date +%d%b%Y) is rollbacked ">>/backup/logs/Staus_Bakup.log
-else
-echo ""
-fi
-cd /opt/codedeploy-agent/deployment-root/$DEPLOYMENT_GROUP_ID/$DEPLOYMENT_ID/deployment-archive/
-rm -rf clmaster.war 
-
-sleep 30
-
-URL="$(wget -S --spider http://172.31.87.183:80/clmaster/ 2>&1 | awk '/^  /' | head -1)"
+###URL based rollback
+URL="$(wget -S --spider https://qa1.clclient.com/clapp 2>&1 | awk '/^  /' | head -1)"
 
 if [[ $URL = "  HTTP/1.1 200 OK" ]] ; then
         echo "Server is Up"
 else
-        echo "Server is Down"
+echo "jdkkljdlkjasdkljas"
+##tar -xvf /backup/clapp.war.tar.gz_$(date +%d%b%Y) --directory /opt/wildfly/standalone/deployments/"
 fi
+
+
+
