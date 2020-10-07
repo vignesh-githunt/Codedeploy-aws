@@ -31,7 +31,7 @@ jobs:
           - name: Compile with Maven
             run: mvn compile
           - name: Testing
-            run: mvn test
+            run: mvn -B clean package
           - name: Create War deployment package
             run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./  -x  *.git*
            
