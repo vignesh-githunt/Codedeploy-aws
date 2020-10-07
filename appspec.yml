@@ -14,10 +14,10 @@ permissions:
       - directory
 hooks:
   BeforeInstall:
-  - location: BACKUP.sh
+  - location: scripts/BACKUP.sh
     timeout: 100
     runas: root
   AfterInstall:
-  - location: ROLLBACK.sh
+  - location: scripts/ROLLBACK.sh
     timeout: 300
     runas: root
