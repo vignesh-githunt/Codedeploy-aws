@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: s3://flash-github1/*.war
+  - source: .
     destination: /opt/wildfly/standalone/deployment/
 
 permissions:
