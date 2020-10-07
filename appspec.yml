@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: clmaster.war
+  - source: /21Sep2020/clmaster.war
     destination: /opt/Temp_Location
 
 permissions:
